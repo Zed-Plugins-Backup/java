@@ -114,10 +114,16 @@ impl Java {
                 let entry =
                     entry.map_err(|err| format!("failed to load directory entry: {err}"))?;
 
+                dbg!(&entry);
+
                 if entry.file_name().to_str() != Some(build_path) {
+                    println!("should be removed");
+
                     if let Err(err) = fs::remove_dir_all(entry.path()) {
                         println!("failed to remove directory entry: {err}");
                     }
+                } else {
+                    println!("should not be removed");
                 }
             }
         }
